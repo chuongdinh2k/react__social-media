@@ -1,9 +1,10 @@
 import { createTheme } from "@mui/material/styles";
 export const myTheme = {
     colors: {
-        primary: "#5486C1",
+        blue: "#5486C1",
         darkBlack: "#05141C",
         darkBackground: "#1B2730",
+        backgroundInput: "#3B3E49",
     },
     breakPoints: {
         breakSmall: "320px",

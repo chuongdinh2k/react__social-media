@@ -2,6 +2,6 @@ import React from "react";
 
 // interface Props {}
 
-const MySearchInput = () => {
-    return <div>MySearchInput</div>;
+export const MySearchInput = () => {
+    return <>hello</>;
 };

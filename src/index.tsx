@@ -7,7 +7,8 @@ import { Provider } from 'react-redux';
 import { ThemeProvider as ThemeProviders } from "styled-components";
 import { ThemeProvider } from "@material-ui/styles";
 
-import { store, persistor } from "@redux";
+import { store, persistor } from "../src/redux";
+import { myTheme, theme } from './styles/theme';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,9 +16,11 @@ const root = ReactDOM.createRoot(
 root.render(
 <Provider store={store}>
   <ThemeProvider theme={theme}>
+  <ThemeProviders theme={myTheme}>
     <React.StrictMode>
       <App />
     </React.StrictMode>
+    </ThemeProviders>
     </ThemeProvider>
 </Provider>
 );

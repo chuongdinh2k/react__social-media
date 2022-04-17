@@ -5,7 +5,7 @@
         "@components": ["src/components"],
         "@enums": ["src/enums"],
         "@containers": ["src/Container"],
-        "@types": ["src/types"],
+        "@interfaces": ["src/interfaces"],
         "@configs":["src/Configs"],
         "@layouts":["src/Layouts"],
         "@styles":["src/styles"],

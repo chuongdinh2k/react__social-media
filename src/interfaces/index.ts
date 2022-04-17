@@ -1,1 +1,1 @@
-import * from "./layout";
+export * from "./route";

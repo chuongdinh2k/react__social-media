@@ -20,6 +20,9 @@ export const StyledAppInput = styled.div`
         .MuiInputLabel-root {
             color: #d8d2cb;
         }
+        @media (max-width: 768px) {
+            margin: 0;
+        }
     }
 `;
 export const InputWrapper = styled.div``;

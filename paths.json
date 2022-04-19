@@ -7,14 +7,15 @@
         "@containers": ["src/Container"],
         "@interfaces": ["src/interfaces"],
         "@configs":["src/Configs"],
-        "@layouts":["src/Layouts"],
+        "@layouts":["src/layout"],
         "@styles":["src/styles"],
         "@assets":["src/assets"],
         "@redux":["src/redux"],
         "@utils":["src/utils"],
         "@demos":["src/Demos"],
         "@api":["src/api"],
-        "@hocs":["src/hocs"]
+        "@hocs":["src/hocs"],
+        "@pages":["src/pages"]
       }
     }
   }

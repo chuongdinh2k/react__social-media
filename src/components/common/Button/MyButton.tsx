@@ -9,19 +9,21 @@ interface IMyButtonProps {
     text?: string;
     backgroundColor?: string;
     color?: string;
+    onClick: any;
+    type?: string;
 }
 
-export const MyButton = (props: IMyButtonProps) => {
-    const { icon, positionIcon, color, text, backgroundColor } = props;
+export const AppButton = (props: IMyButtonProps) => {
+    const { icon, positionIcon, onClick, type, color, text, backgroundColor } = props;
     return (
         <StyledMyButton backgroundColor={backgroundColor} color={color}>
             <Stack direction="row" spacing={2}>
                 {positionIcon === "start" ? (
-                    <Button variant="outlined" startIcon={icon} disableElevation>
+                    <Button onClick={onClick} variant="outlined" startIcon={icon} disableElevation>
                         {text}
                     </Button>
                 ) : (
-                    <Button variant="contained" endIcon={icon} disableElevation>
+                    <Button onClick={onClick} variant="contained" endIcon={icon} disableElevation>
                         {text}
                     </Button>
                 )}

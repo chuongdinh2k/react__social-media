@@ -5,7 +5,6 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { StyledAppInput, Error } from ".";
-import { ComponentPopOver } from "..";
 
 interface IAppInput {
     placeholder?: string;
@@ -21,8 +20,7 @@ interface IAppInput {
     debounce?: boolean;
 }
 export const AppInput = forwardRef((props: IAppInput, ref: any) => {
-    const { handleChange, placeholder, isPassword, debounce, label, noError, value, name, icon } =
-        props;
+    const { handleChange, placeholder, isPassword, label, noError, value, name, icon } = props;
     // component state
     const [showPassword, setShowPassword] = React.useState(isPassword);
     const handleClickShowPassword = () => {

@@ -2,8 +2,17 @@ import { appRoutesEnum, authRoutesEnum } from "../enums/routes";
 
 import { LayoutAuth, LayoutApp } from "@layouts";
 import { IRoute } from "../interfaces/route";
-import { Home } from "@pages";
+import { Home, Login, About } from "@pages";
+import { withRouter } from "react-router-dom";
+
 export const routes: Array<IRoute> = [
-    { name: "Home", path: appRoutesEnum.HOME, exact: true, component: Home, layout: LayoutAuth },
-    { name: "Login", path: authRoutesEnum.LOGIN, exact: true, component: Home, layout: LayoutApp },
+    {
+        name: "Login",
+        path: authRoutesEnum.LOGIN,
+        exact: true,
+        component: Login,
+        layout: LayoutAuth,
+    },
+    { name: "Home", path: appRoutesEnum.HOME, exact: true, component: Home },
+    { name: "Home", path: appRoutesEnum.ABOUT, exact: true, component: About },
 ];

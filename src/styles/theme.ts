@@ -4,9 +4,15 @@ export const myTheme = (mode: any) => {
     return {
         colors: {
             blue: "#5486C1",
+            red: "#f8485e",
             darkBlack: `${mode === "light" ? "white" : "#1B2730"}`,
             darkBackground: `${mode === "light" ? "white" : "#1B2730"}`,
             backgroundInput: "#3B3E49",
+            drawer: {
+                backgroundDrawer: `${mode === "light" ? "#1A1C1E" : "white"}`,
+                textDrawer: `${mode === "light" ? "white" : "black"}`,
+            },
+            text: `${mode === "light" ? "black" : "white"}`,
         },
         breakPoints: {
             breakSmall: "320px",
@@ -27,6 +33,9 @@ const DEFAULT_THEME_CONFIG = {
     palette: {
         primary: {
             main: "#5486C1",
+        },
+        secondary: {
+            main: "#ffffff",
         },
     },
     spacing: 8,

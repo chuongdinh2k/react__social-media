@@ -9,6 +9,7 @@ import { ComponentAppRoute } from "./components/AppRoute";
 import { routes } from "./configs/routes";
 import { IRoute } from "./interfaces/route";
 import { useAppSelector, selectApp } from "@redux";
+import { AppSnackBar } from "@components";
 
 export const App = () => {
     const app = useAppSelector(selectApp);
@@ -17,6 +18,7 @@ export const App = () => {
         <ThemeProviders theme={myTheme(app.theme)}>
             <StyledModuleApp>
                 <div className="App">
+                    <AppSnackBar />
                     <BrowserRouter>
                         <Switch>
                             {routes.map((e: IRoute, key) => (
@@ -30,5 +32,5 @@ export const App = () => {
     );
 };
 const StyledModuleApp = styled.div`
-    background-color: ${(p) => p.theme.colors.backgroundColor};
+    background-color: ${(p) => p.theme.colors.darkBackground} !important;
 `;

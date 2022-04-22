@@ -4,6 +4,8 @@ interface IStyledMyButton {
     backgroundColor?: string;
     backgroundColorHover?: string;
     color?: string;
+    colorIcon?: string;
+    borderColor?: string;
 }
 export const StyledMyButton = styled.div<IStyledMyButton>`
     .MuiButton-root {
@@ -13,9 +15,21 @@ export const StyledMyButton = styled.div<IStyledMyButton>`
         font-weight: 600;
         color: ${(p) => p.color || "white"};
         text-transform: capitalize;
+        border-color: ${(p) => p.borderColor || p.backgroundColor};
         &:hover {
             background-color: ${(p) => p.theme.colors.blue};
             color: white;
+            /* .MuiSvgIcon-root {
+                color: white;
+            } */
         }
+        .MuiSvgIcon-root {
+            color: ${(p) => p.colorIcon || "white"};
+        }
+    }
+`;
+export const StyledAppSwitch = styled.div`
+    .MuiTypography-root {
+        color: ${(p) => p.theme.colors.text};
     }
 `;

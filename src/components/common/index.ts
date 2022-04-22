@@ -3,3 +3,8 @@ export * from "./Button";
 export * from "./Input";
 export * from "./Select";
 export * from "./Popover";
+export * from "./Modal";
+export * from "./SnackBar";
+export * from "./Icon";
+export * from "./Badge";
+export * from "./Loader";

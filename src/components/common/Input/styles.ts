@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledAppInput = styled.div`
     .MuiFormControl-root {
         width: 100%;
+        margin: 0;
         fieldset {
         }
         .MuiOutlinedInput-root {

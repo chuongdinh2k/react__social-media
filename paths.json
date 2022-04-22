@@ -15,7 +15,9 @@
         "@demos":["src/Demos"],
         "@api":["src/api"],
         "@hocs":["src/hocs"],
-        "@pages":["src/pages"]
+        "@pages":["src/pages"],
+        "@mockup":["src/mockup"],
+        "@hooks":["src/hooks"]
       }
     }
   }

@@ -4,6 +4,8 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch, { SwitchProps } from "@mui/material/Switch";
 
+import { StyledAppSwitch } from "./styles";
+
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
     height: 34,
@@ -66,13 +68,15 @@ export const AppSwitchTheme = (props: IAppSwitchButton) => {
     };
 
     return (
-        <FormGroup>
-            <FormControlLabel
-                control={
-                    <MaterialUISwitch sx={{ m: 1 }} checked={checked} onChange={handleChange} />
-                }
-                label={`${checked ? "Dark Mode" : "Light Mode"}`}
-            />
-        </FormGroup>
+        <StyledAppSwitch>
+            <FormGroup>
+                <FormControlLabel
+                    control={
+                        <MaterialUISwitch sx={{ m: 1 }} checked={checked} onChange={handleChange} />
+                    }
+                    label={`${checked ? "Dark Mode" : "Light Mode"}`}
+                />
+            </FormGroup>
+        </StyledAppSwitch>
     );
 };

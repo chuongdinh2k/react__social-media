@@ -49,3 +49,17 @@
 .MuiDrawer-paper{
   background-color: transparent !important; 
 }
+/* popover */
+.newfeeds__options {
+  padding: 20px;
+}
+.newfeeds__options-item{
+  padding: 5px 10px;
+  font-size: 14px;
+  text-transform: capitalize;
+  transition: 250ms;
+}
+.newfeeds__options-item:hover{
+  background-color: gray;
+  
+}

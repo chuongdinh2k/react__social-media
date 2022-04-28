@@ -1,4 +1,3 @@
-import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import { postApi } from "@api";
@@ -17,7 +16,6 @@ const initialState: IState = {
 
 export const viewListPosts = createAsyncThunk("posts/view", async (values: any) => {
     const res = await postApi.getListPost(values);
-    console.log(res);
     return res.data;
 });
 
@@ -38,7 +36,6 @@ const posts = createSlice({
             state.loading = false;
             // state.listPosts = [...state.listPosts, ...action.payload];
             state.listPosts = action.payload;
-            console.log(action.payload);
         });
         builder.addCase(viewListPosts.rejected, (state) => {
             state.loading = false;

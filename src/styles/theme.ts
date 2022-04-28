@@ -7,12 +7,17 @@ export const myTheme = (mode: any) => {
             red: "#f8485e",
             darkBlack: `${mode === "light" ? "white" : "#1B2730"}`,
             darkBackground: `${mode === "light" ? "white" : "#1B2730"}`,
-            backgroundInput: "#3B3E49",
+            backgroundInput: `${mode === "light" ? "white" : "#3B3E49"}`,
             drawer: {
-                backgroundDrawer: `${mode === "light" ? "#1A1C1E" : "white"}`,
-                textDrawer: `${mode === "light" ? "white" : "black"}`,
+                backgroundDrawer: `${mode === "light" ? "#1A1C1E" : "#F7F5F2"}`,
+                textDrawer: `${mode === "light" ? "#F7F5F2" : "black"}`,
             },
-            text: `${mode === "light" ? "black" : "white"}`,
+            text: `${mode === "light" ? "black" : "#F7F5F2"}`,
+            boxShadow: `${
+                mode === "light"
+                    ? "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;"
+                    : "none"
+            }`,
         },
         breakPoints: {
             breakSmall: "320px",

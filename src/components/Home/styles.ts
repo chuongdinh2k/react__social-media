@@ -18,13 +18,15 @@ export const StyledHomeComponent = styled.div`
 `;
 export const StyledHomeProfileView = styled.div<IHomeProfileViewProps>`
     .user {
-        position: absolute;
+        /* position: absolute;
         left: 0;
-        top: 0;
+        top: 0; */
         width: 100%;
         border-radius: 10px;
+        margin-bottom: 20px;
         overflow: hidden;
         background-color: ${(p) => p.theme.colors.backgroundInput};
+        box-shadow: ${(p) => p.theme.colors.boxShadow};
         @media (max-width: 980px) {
             display: none;
         }
@@ -45,12 +47,14 @@ export const StyledHomeProfileView = styled.div<IHomeProfileViewProps>`
         }
         &__avatar {
             position: absolute;
-            z-index: 99;
+            z-index: 1;
             left: 40%;
             top: -30%;
             .MuiAvatar-root {
                 width: 70px;
                 height: 70px;
+                font-size: 40px;
+                font-weight: bold;
             }
             @media (max-width: 768px) {
                 left: 41%;
@@ -78,7 +82,7 @@ export const StyledHomeProfileView = styled.div<IHomeProfileViewProps>`
         &__bottom {
             display: flex;
             justify-content: center;
-            padding: 20px 0;
+            padding: 10px 0;
             &-btn {
                 text-transform: capitalize;
             }
@@ -87,16 +91,22 @@ export const StyledHomeProfileView = styled.div<IHomeProfileViewProps>`
 `;
 
 export const StyledHomeInput = styled.div`
-    padding: 10px 20px;
+    padding: 20px;
     border-radius: 10px;
     background-color: ${(p) => p.theme.colors.backgroundInput};
+    box-shadow: ${(p) => p.theme.colors.boxShadow};
 `;
 
 export const StyledHomeNews = styled.div`
     margin: 20px 0;
-    padding: 10px 20px;
+    padding: 20px;
     border-radius: 10px;
     background-color: ${(p) => p.theme.colors.backgroundInput};
+    box-shadow: ${(p) => p.theme.colors.boxShadow};
+    @media (max-width: 600px) {
+        padding: 0px;
+        background-color: transparent;
+    }
     .newfeed {
         &__name {
             padding-left: 5px;
@@ -131,24 +141,32 @@ export const StyledHomeNews = styled.div`
         }
         &__time {
             padding-left: 5px;
-
             color: gray;
             font-size: 14px;
         }
         &__content {
             padding: 10px 0;
             padding-left: 5px;
-            color: #f6f6f6;
+            color: ${(p) => p.theme.colors.text};
+            /* text-align: justify; */
         }
+        &__showImage {
+            width: 100%;
+            padding: 5px;
+        }
+
         &__react {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
             &-icon {
                 margin-right: 5px;
-                padding: 4px 4px 2px 4px;
+                padding: 2px 5px;
                 border-radius: 100%;
                 background-color: #f8485e;
+                @media (max-width: 980px) {
+                    padding: 2px 5px;
+                }
                 .MuiSvgIcon-root {
                     color: white;
                     font-size: 14px;
@@ -172,11 +190,35 @@ export const StyledHomeNews = styled.div`
             }
         }
         .btn__like {
+            .MuiButton-startIcon {
+                @media (max-width: 600px) {
+                    margin-right: 0 !important;
+                }
+            }
             &:hover {
                 .MuiSvgIcon-root {
                     color: #f8485e !important;
                 }
             }
         }
+        &__options {
+            padding: 20px;
+            &-item {
+                padding: 5px 10px;
+                font-size: 14px;
+                text-transform: capitalize;
+                transition: 250ms;
+            }
+            &:hover {
+                background-color: gray;
+            }
+        }
+        /* .MuiButton-root {
+        }
+        .MuiButton-startIcon {
+            @media (max-width: 600px) {
+                margin-right: 0;
+            }
+        } */
     }
 `;

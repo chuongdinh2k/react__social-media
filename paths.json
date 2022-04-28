@@ -6,7 +6,7 @@
         "@enums": ["src/enums"],
         "@containers": ["src/Container"],
         "@interfaces": ["src/interfaces"],
-        "@configs":["src/Configs"],
+        "@configs":["src/configs"],
         "@layouts":["src/layout"],
         "@styles":["src/styles"],
         "@assets":["src/assets"],

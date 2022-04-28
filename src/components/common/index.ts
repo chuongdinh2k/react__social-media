@@ -8,3 +8,5 @@ export * from "./SnackBar";
 export * from "./Icon";
 export * from "./Badge";
 export * from "./Loader";
+export * from "./Collapse";
+export * from "./Avatar";

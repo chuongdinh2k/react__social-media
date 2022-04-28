@@ -1,4 +1,4 @@
-import thunk from "redux-thunk";
+import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import storage from "redux-persist/lib/storage";
@@ -7,16 +7,16 @@ import { persistStore, persistReducer } from "redux-persist";
 import reducer, { RootState } from "./slices";
 
 const persistConfig = {
-  key: "root",
-  storage,
-  // whitelist: ["auth"],
+    key: "root",
+    storage,
+    whitelist: ["auth"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
 const store = configureStore({
-  reducer: persistedReducer,
-  middleware: [thunk],
+    reducer: persistedReducer,
+    middleware: [thunk],
 });
 
 export const persistor = persistStore(store);

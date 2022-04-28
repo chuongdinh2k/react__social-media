@@ -1,18 +1,32 @@
 import styled from "styled-components";
 
-export const StyledAppInput = styled.div`
+interface IStyledAppInput {
+    isBorder?: boolean;
+}
+export const StyledAppInput = styled.div<IStyledAppInput>`
     .MuiFormControl-root {
         width: 100%;
         margin: 0;
         fieldset {
+            border-color: ${(p) => (!p.isBorder ? "transparent" : "gray")};
+            &:hover {
+                border-color: ${(p) => (!p.isBorder ? "transparent" : "gray")};
+            }
         }
         .MuiOutlinedInput-root {
             color: white;
             border-radius: 10px;
             background-color: ${(p) => p.theme.colors.backgroundInput} !important;
+            padding: 12px 14px;
             .MuiOutlinedInput-input {
                 font-size: 14px;
-                padding: 8px 14px;
+                padding: 0;
+            }
+            @media (max-width: 600px) {
+                font-size: 10px;
+                .MuiButton-startIcon {
+                    /* margin-right: 0; */
+                }
             }
         }
         .MuiSvgIcon-root {
@@ -31,4 +45,7 @@ export const LabelWrapper = styled.div``;
 export const Error = styled.span`
     font-size: 14px;
     color: ${(p) => p.theme.colors.red};
+    @media (max-width: 600px) {
+        font-size: 12px;
+    }
 `;

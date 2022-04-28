@@ -18,9 +18,22 @@ interface IAppInput {
     noError?: boolean;
     icon?: any;
     debounce?: boolean;
+    multiline?: boolean;
+    isBorder?: boolean;
 }
 export const AppInput = forwardRef((props: IAppInput, ref: any) => {
-    const { handleChange, placeholder, isPassword, label, noError, value, name, icon } = props;
+    const {
+        handleChange,
+        placeholder,
+        multiline = true,
+        isPassword,
+        label,
+        noError,
+        value,
+        name,
+        icon,
+        isBorder,
+    } = props;
     // component state
     const [showPassword, setShowPassword] = React.useState(isPassword);
     const handleClickShowPassword = () => {
@@ -33,7 +46,7 @@ export const AppInput = forwardRef((props: IAppInput, ref: any) => {
         [handleChange]
     );
     return (
-        <StyledAppInput>
+        <StyledAppInput isBorder={isBorder}>
             <FormControl className="formInput" sx={{ m: 1, width: "25ch" }} variant="outlined">
                 {label && <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>}
                 {isPassword ? (
@@ -44,6 +57,7 @@ export const AppInput = forwardRef((props: IAppInput, ref: any) => {
                         value={value}
                         placeholder={placeholder}
                         onChange={handleOnChange}
+                        autoComplete="off"
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -66,21 +80,26 @@ export const AppInput = forwardRef((props: IAppInput, ref: any) => {
                     <OutlinedInput
                         name={name}
                         id={`inpit-adornment-password-${name}`}
-                        type={showPassword ? "password" : "text"}
+                        type="text"
                         value={value}
                         onChange={handleOnChange}
                         placeholder={placeholder}
+                        multiline={multiline}
+                        maxRows={50}
+                        autoComplete="off"
                         endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    // onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {icon}
-                                </IconButton>
-                            </InputAdornment>
+                            icon && (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        // onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {icon}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
                         }
                         label={label}
                     />

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
 
 import { StyledHomeComponent } from "./styles";
 import { HomeProfileView, HomeInput, HomeNews } from ".";
+import { SuggestionAccount } from "..";
 import { useAppSelector, viewListPosts, selectPost, loadData } from "@redux";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { postApi } from "@api";
 
 const img =
@@ -26,49 +26,42 @@ export const HomeContent = () => {
             })
         );
     }, [page]);
-    const fetchMoreData = async () => {
-        const response = await postApi.getListPost({
-            page: page + 1,
-            limit: 6,
-        });
-        if (response.data.length === 0) {
-            dispatch(loadData(response.data));
-            return;
-        } else {
-            setTimeout(() => {
-                // setBlogs([...blogs,...response.data.blogs]);
-                setPage(page + 1);
-                dispatch(dispatch(loadData(response.data)));
-            }, 1000);
-        }
-    };
+    // const fetchMoreData = async () => {
+    //     const response = await postApi.getListPost({
+    //         page: page + 1,
+    //         limit: 6,
+    //     });
+    //     if (response.data.length === 0) {
+    //         dispatch(loadData(response.data));
+    //         return;
+    //     } else {
+    //         setTimeout(() => {
+    //             // setBlogs([...blogs,...response.data.blogs]);
+    //             setPage(page + 1);
+    //             dispatch(dispatch(loadData(response.data)));
+    //         }, 1000);
+    //     }
+    // };
     return (
         <StyledHomeComponent>
             <Grid container justifyContent="center" spacing={2}>
                 <Grid item xs={12} sm={8} md={3}>
-                    <div className="wrapperUserInfo">
+                    {/* <div className="wrapperUserInfo">
                         <HomeProfileView />
-                    </div>
+                    </div> */}{" "}
+                    <HomeProfileView />
+                    <SuggestionAccount />
                 </Grid>
                 <Grid item xs={12} sm={8} md={6}>
                     <div className="newfeeds">
                         <HomeInput avatar={img} />
-                        <InfiniteScroll
-                            style={{ overflow: "hidden" }}
-                            dataLength={posts.listPosts ? 0 : posts.listPosts?.length}
-                            next={fetchMoreData}
-                            hasMore={true}
-                            loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
-                        >
-                            <div style={{ padding: "1rem" }}>
-                                {posts.listPosts &&
-                                    posts.listPosts.map((post: any, index: number) => (
-                                        <div key={index}>
-                                            <HomeNews newfeed={post} />
-                                        </div>
-                                    ))}
-                            </div>
-                        </InfiniteScroll>
+
+                        {posts.listPosts.length &&
+                            posts.listPosts.map((post: any, index: number) => (
+                                <div key={index}>
+                                    <HomeNews newfeed={post} />
+                                </div>
+                            ))}
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={0} md={3}>

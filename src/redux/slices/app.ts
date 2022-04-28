@@ -1,4 +1,3 @@
-import { SnackBarType } from "@interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { RootState } from ".";
@@ -35,7 +34,7 @@ const appSlice = createSlice({
         changeTheme: (state: any, action: PayloadAction<string>) => {
             state.theme = action.payload;
         },
-        updateSnackbar: (state: any, action: PayloadAction<SnackBarType>) => {
+        updateSnackbar: (state: any, action: PayloadAction<any>) => {
             state.snackbar = {
                 ...state.snackbar,
                 ...action.payload,

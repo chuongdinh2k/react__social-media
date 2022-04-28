@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import { APP_HEADER } from "@configs";
 
 export const StyledAppTopBar = styled.div`
     display: flex;
     justify-content: space-between;
     padding: 15px 0;
+    height: ${APP_HEADER}px;
     .header {
         &__right {
             display: flex;
@@ -16,6 +18,9 @@ export const StyledAppTopBar = styled.div`
                 padding-top: 0;
             }
         }
+        &__search {
+            position: relative;
+        }
         &__left {
             display: flex;
             justify-content: flex-end;
@@ -25,7 +30,7 @@ export const StyledAppTopBar = styled.div`
             .MuiSvgIcon-root {
                 color: white;
             }
-            @media (max-width: 768px) {
+            @media (max-width: 980px) {
                 display: flex;
                 justify-content: flex-end;
             }

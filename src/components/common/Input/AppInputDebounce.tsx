@@ -23,9 +23,9 @@ export const AppInputDebounce = (props: IAppInputDebounce) => {
     const { handleChange, placeholder, debounce, label, noError, value, name, icon } = props;
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+    // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    //     setAnchorEl(event.currentTarget);
+    // };
     const handleOnChange = React.useCallback(
         (event: any) => {
             handleChange(event.target.value);

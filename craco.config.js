@@ -7,7 +7,7 @@ module.exports = {
             "@components": path.resolve(__dirname, "./src/components"),
             "@enums": path.resolve(__dirname, "./src/enums"),
             "@interfaces": path.resolve(__dirname, "./src/interfaces"),
-            "@configs": path.resolve(__dirname, "./src/Configs"),
+            "@configs": path.resolve(__dirname, "./src/configs"),
             "@layouts": path.resolve(__dirname, "./src/layout"),
             "@styles": path.resolve(__dirname, "./src/styles"),
             "@assets": path.resolve(__dirname, "./src/assets"),

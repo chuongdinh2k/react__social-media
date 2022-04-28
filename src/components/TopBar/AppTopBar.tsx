@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
-    Avatar,
     Button,
     Grid,
     Popover,
@@ -19,19 +18,58 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useHistory } from "react-router-dom";
 
 import { StyledAppTopBar } from "./styles";
-import { AppInput, AppButton, IconEmail, AppBadge, AppDrawer, AppSwitchTheme } from "..";
-import { changeTheme } from "@redux";
+import {
+    AppInput,
+    AppButton,
+    ComponentPopOver,
+    IconMessage,
+    AppBadge,
+    AppDrawer,
+    AppSwitchTheme,
+} from "..";
+import { changeTheme, useAppSelector, selectAuth, signOut } from "@redux";
 import { useDispatch } from "react-redux";
 import { useDebounce } from "@hooks";
+import axios from "axios";
+import { shortenText } from "@utils";
+import { appRoutesEnum, authRoutesEnum } from "@enums";
+import { AppAvatar } from "..";
+
+interface IOutSide {
+    setOpenPopover: React.Dispatch<React.SetStateAction<boolean>>;
+    ref: any;
+}
+
+// click outside
+function useOutsideClick(props: IOutSide) {
+    const { ref, setOpenPopover } = props;
+    React.useEffect(() => {
+        function handleClickOutside(event: any) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setOpenPopover(false);
+            }
+        }
+        // Bind the event listener
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [ref]);
+}
 
 export const AppTopBar = () => {
+    // redux state
+    const userInfo = useAppSelector(selectAuth).userInfo;
+    const ref = useRef(null);
+    const [openPopover, setOpenPopover] = React.useState<boolean>(false);
+    useOutsideClick({ ref, setOpenPopover });
     // hooks
     const history = useHistory();
     const dispatch = useDispatch();
     // component state
     const [openDrawer, setOpenDrawer] = React.useState<boolean>(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-    const [input, setInput] = React.useState<string>("");
     const [theme, setTheme] = React.useState<boolean>(false);
     // component variable
     const open = Boolean(anchorEl);
@@ -45,7 +83,6 @@ export const AppTopBar = () => {
         setAnchorEl(null);
     };
     const handleChangeTheme = (value: any) => {
-        console.log(value);
         setTheme(value);
         dispatch(changeTheme(value ? "dark" : "light"));
     };
@@ -54,15 +91,16 @@ export const AppTopBar = () => {
     const [results, setResults] = React.useState([]);
     // Searching status (whether there is pending API request)
     const [isSearching, setIsSearching] = React.useState(false);
-    // Debounce search term so that it only gives us latest value ...
-    // ... if searchTerm has not been updated within last 500ms.
-    // The goal is to only have the API call fire when user stops typing ...
-    // ... so that we aren't hitting our API rapidly.
     const debouncedSearchTerm = useDebounce(searchTerm, 500);
-
     // Effect for API call
+    const handleSelectItem = (value: any) => {
+        setSearchTerm(value);
+    };
     React.useEffect(
         () => {
+            searchCharacters("").then((results) => {
+                setResults(results);
+            });
             if (debouncedSearchTerm) {
                 setIsSearching(true);
                 searchCharacters(debouncedSearchTerm).then((results: any) => {
@@ -76,41 +114,53 @@ export const AppTopBar = () => {
         },
         [debouncedSearchTerm] // Only call effect if debounced search term changes
     );
-    console.log(results);
     const handleChange = (value: string) => {
-        setInput(value);
         setSearchTerm(value);
+        setOpenPopover(true);
     };
     // API search function
-    function searchCharacters(search: string) {
-        return fetch(`https://60c0c446b8d3670017555cb3.mockapi.io/api/v1/users?search=${search}`, {
-            method: "GET",
-        })
-            .then((r) => r.json())
-            .then((r) => r.data.results)
-            .catch((error) => {
-                console.error(error);
-                return [];
-            });
-    }
+    const searchCharacters = async (search: string) => {
+        setIsSearching(true);
+        try {
+            const res = await axios.get(
+                `https://60c0c446b8d3670017555cb3.mockapi.io/api/v1/users?search=${search}`
+            );
+            setIsSearching(false);
+            return res.data;
+        } catch (err) {
+            setIsSearching(false);
+            return [];
+        }
+    };
     return (
         <StyledAppTopBar>
             <Grid container justifyContent="space-between">
-                <Grid item xs={8} md={4}>
+                <Grid item xs={8} md={5}>
                     <div className="header__right">
                         <div className="header__logo">
                             <DiamondIcon color="primary" fontSize="large" />
                         </div>
-                        <div className="header__search">
+                        <div
+                            className="header__search"
+                            ref={ref}
+                            onClick={() => setOpenPopover(!openPopover)}
+                        >
                             <AppInput
                                 handleChange={handleChange}
                                 value={searchTerm}
-                                placeholder="#jame"
+                                placeholder="Find some one"
+                                multiline
+                            />
+                            <ComponentPopOver
+                                open={openPopover}
+                                loadingDebounce={isSearching}
+                                dataInputBounce={results}
+                                onChangeDebounce={handleSelectItem}
                             />
                         </div>
                     </div>
                 </Grid>
-                <Grid item xs={4} md={8}>
+                <Grid item xs={4} md={7}>
                     <div className="header__left">
                         <div className="header__menu">
                             <span className="header__menu-list">
@@ -126,12 +176,15 @@ export const AppTopBar = () => {
                                     text="Home"
                                     color="black"
                                     positionIcon="start"
-                                    onClick={() => history.push("/about")}
+                                    onClick={() => history.push(appRoutesEnum.HOME)}
                                     colorIcon="#5486C1"
                                 />
                             </span>
-                            <span className="header__menu-list">
-                                <IconEmail fontSize="large" />
+                            <span
+                                className="header__menu-list"
+                                onClick={() => history.push(appRoutesEnum.CHAT)}
+                            >
+                                <IconMessage fontSize="large" />
                             </span>
                             <span className="header__menu-list">
                                 <AppBadge icon={<NotificationsIcon fontSize="large" />} />
@@ -142,14 +195,24 @@ export const AppTopBar = () => {
                                     onClick={handleClickPopover}
                                     className="header__menu-user"
                                 >
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                    <a className="text">Dinh Van Chuong</a>
+                                    <AppAvatar
+                                        avatar={userInfo?.avatar}
+                                        firstname={userInfo?.firstname}
+                                    />
+                                    {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
+                                    <a className="text">
+                                        {shortenText(
+                                            `${userInfo?.firstname} ${userInfo?.lastname}`,
+                                            8
+                                        )}
+                                    </a>
                                     <ArrowDropDownIcon />
                                 </Button>
                                 <Popover
                                     id={id}
                                     open={open}
                                     onClose={handleClosePopover}
+                                    anchorEl={anchorEl}
                                     anchorOrigin={{
                                         vertical: "bottom",
                                         horizontal: "right",
@@ -173,7 +236,12 @@ export const AppTopBar = () => {
                                                     //     history.push(authRoutesEnum.LOGIN)
                                                     // }
                                                 >
-                                                    <ListItemButton>
+                                                    <ListItemButton
+                                                        onClick={() => {
+                                                            dispatch(signOut());
+                                                            history.push(authRoutesEnum.LOGIN);
+                                                        }}
+                                                    >
                                                         <ListItemIcon>
                                                             <LogoutIcon />
                                                         </ListItemIcon>

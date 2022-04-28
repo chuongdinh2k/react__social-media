@@ -1,8 +1,9 @@
 import { Button, Stack } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import React from "react";
 
 import { StyledMyButton } from ".";
-
+import { CircularProgress } from "@mui/material";
 interface IMyButtonProps {
     icon?: any;
     positionIcon?: string;
@@ -13,6 +14,8 @@ interface IMyButtonProps {
     type?: string;
     colorIcon?: string;
     borderColor?: string;
+    disabled?: boolean;
+    loading?: boolean;
 }
 
 export const AppButton = (props: IMyButtonProps) => {
@@ -22,10 +25,10 @@ export const AppButton = (props: IMyButtonProps) => {
         colorIcon,
         borderColor,
         onClick,
-        type,
         color,
         text,
         backgroundColor,
+        loading,
     } = props;
     return (
         <StyledMyButton
@@ -36,13 +39,29 @@ export const AppButton = (props: IMyButtonProps) => {
         >
             <Stack direction="row" spacing={2}>
                 {positionIcon === "start" ? (
-                    <Button onClick={onClick} variant="outlined" startIcon={icon} disableElevation>
+                    <LoadingButton
+                        // disabled={loading}
+                        onClick={onClick}
+                        variant="outlined"
+                        startIcon={loading ? "" : icon}
+                        loading={loading}
+                        loadingIndicator="Loading..."
+                        // disableElevation
+                    >
                         {text}
-                    </Button>
+                    </LoadingButton>
                 ) : (
-                    <Button onClick={onClick} variant="contained" endIcon={icon} disableElevation>
+                    <LoadingButton
+                        // disabled={loading}
+                        onClick={onClick}
+                        variant="contained"
+                        endIcon={loading ? "" : icon}
+                        loading={loading}
+                        loadingIndicator="Loading..."
+                        // disableElevation
+                    >
                         {text}
-                    </Button>
+                    </LoadingButton>
                 )}
             </Stack>
         </StyledMyButton>

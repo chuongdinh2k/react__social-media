@@ -6,14 +6,13 @@ import { ThemeProvider as ThemeProviders } from "styled-components";
 import "./App.css";
 import { myTheme } from "./styles/theme";
 import { ComponentAppRoute } from "./components/AppRoute";
-import { routes } from "./configs/routes";
+import { routes } from "@configs";
 import { IRoute } from "./interfaces/route";
 import { useAppSelector, selectApp } from "@redux";
 import { AppSnackBar } from "@components";
 
 export const App = () => {
     const app = useAppSelector(selectApp);
-    console.log(app);
     return (
         <ThemeProviders theme={myTheme(app.theme)}>
             <StyledModuleApp>
